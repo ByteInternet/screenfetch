@@ -1,0 +1,7 @@
+screenfetch (3.2.2-1) unstable; urgency=low
+
+  * Initial release (Closes: #750008)
+  * debian/rules
+    - once disable help2man convert, it outputs broken roff file.
+
+ -- Hideki Yamane <henrich@debian.org>  Sat, 31 May 2014 23:09:00 +0900
