@@ -1,4 +1,4 @@
-screenfetch (3.2.2-1) unstable; urgency=low
+screenfetch (3.5.0-1) unstable; urgency=low
 
   * Initial release (Closes: #750008)
   * debian/rules
