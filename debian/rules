@@ -8,6 +8,3 @@ PKGNAME=screenfetch
 
 override_dh_auto_install:
 	install -m 0755 $(CURDIR)/screenfetch-dev $(CURDIR)/debian/$(PKGNAME)/usr/bin/screenfetch
-
-#override_dh_auto_build:
-#	help2man $(CURDIR)/screenfetch-dev -n $(PKGNAME) -s 1 > $(CURDIR)/$(PKGNAME).1

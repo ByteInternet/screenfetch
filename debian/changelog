@@ -1,3 +1,12 @@
+screenfetch (3.5.0-2) unstable; urgency=medium
+
+  * debian/control
+    - drop help2man since upstream provides manpage
+  * debian/rules
+    - clean up to drop help2man related lines
+
+ -- Hideki Yamane <henrich@debian.org>  Wed, 02 Jul 2014 20:13:40 +0900
+
 screenfetch (3.5.0-1) unstable; urgency=low
 
   * Initial release (Closes: #750008)
