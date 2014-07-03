@@ -1,3 +1,12 @@
+screenfetch (3.5.0-3) unstable; urgency=medium
+
+  * debian/control
+    - fix Vcs-browser field
+    - add "Recommends: scrot" to support getting screenshot with "-s" option
+      Thanks to HIGUCHI Daisuke (VDR dai) <dai@debian.org>
+
+ -- Hideki Yamane <henrich@debian.org>  Thu, 03 Jul 2014 22:15:06 +0900
+
 screenfetch (3.5.0-2) unstable; urgency=medium
 
   * debian/control
