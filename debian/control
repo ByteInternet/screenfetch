@@ -6,11 +6,12 @@ Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
 Homepage: https://github.com/KittyKatt/screenFetch
 Vcs-Git: git://anonscm.debian.org/collab-maint/screenfetch.git
-Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/screenfetch.git;a=summary
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/screenfetch.git
 
 Package: screenfetch
 Architecture: all
 Depends: ${misc:Depends}
+Recommends: scrot
 Description: Bash Screenshot Information Tool
  screenFetch is a "Bash Screenshot Information Tool". This handy Bash script
  can be used to generate one of those nifty terminal theme information + ASCII
