@@ -1,3 +1,9 @@
+screenfetch (3.6.0-1) UNRELEASED; urgency=medium
+
+  * New upstream release 
+
+ -- Hideki Yamane <henrich@debian.org>  Thu, 31 Jul 2014 23:05:28 +0900
+
 screenfetch (3.5.0-3) unstable; urgency=medium
 
   * debian/control
