@@ -27,7 +27,7 @@ LANG=C
 LANGUAGE=C
 LC_ALL=C
 
-scriptVersion="3.6.0"
+scriptVersion="3.6.2"
 
 ######################
 # Settings for fetcher
@@ -48,19 +48,18 @@ display_type="ASCII"
 
 # WM & DE process names
 # Removed WM's: compiz
-wmnames=( fluxbox openbox blackbox xfwm4 metacity kwin icewm pekwm fvwm dwm awesome wmaker stumpwm musca xmonad i3 ratpoison scrotwm spectrwm wmfs wmii beryl subtle e16 enlightenment sawfish emerald monsterwm dminiwm compiz Finder herbstluftwm notion bspwm cinnamon 2bwm echinus )
+wmnames=( fluxbox openbox blackbox xfwm4 metacity kwin icewm pekwm fvwm dwm awesome wmaker stumpwm musca xmonad i3 ratpoison scrotwm spectrwm wmfs wmii beryl subtle e16 enlightenment sawfish emerald monsterwm dminiwm compiz Finder herbstluftwm notion bspwm cinnamon 2bwm echinus swm )
 denames=( gnome-session xfce-mcs-manage xfce4-session xfconfd ksmserver lxsession gnome-settings-daemon mate-session mate-settings-daemon Finder )
 
 # Screenshot Settings
 # This setting lets the script know if you want to take a screenshot or not. 1=Yes 0=No
 screenshot=
+# This setting lets the script know if you want to upload the screenshot to a filehost. 1=Yes 0=No
+upload=
+# This setting lest the script know where you would like to upload the file to. Valid hosts are: teknik, mediacrush, pomf, hmp, and a configurable local.
+uploadLoc=
 # You can specify a custom screenshot command here. Just uncomment and edit. Otherwise, we'll be using the default command: scrot -cd3.
 # screenCommand="scrot -cd5"
-hostshot=
-baseurl="http://www.example.com"
-serveraddr="www.example.com"
-scptimeout="20"
-serverdir="/path/to/directory"
 shotfile=$(printf "screenFetch-`date +'%Y-%m-%d_%H-%M-%S'`.png")
 
 # Verbose Setting - Set to 1 for verbose output.
@@ -199,7 +198,6 @@ detectColors() {
 
 displayHelp() {
 	printf "${underline}Usage${c0}:\n"
-#	printf "  screenFetch [OPTIONAL FLAGS]\n\n"
 	printf "  ${0} [OPTIONAL FLAGS]\n\n"
 	printf "screenFetch - a CLI Bash script to show system/theme info in screenshots.\n\n"
 	printf "${underline}Supported GNU/Linux Distributions${c0}:\n"
@@ -232,9 +230,10 @@ displayHelp() {
 	printf "   ${bold}-n${c0}                 Do not display ASCII distribution logo.\n"
 	printf "   ${bold}-N${c0}                 Strip all color from output.\n"
 	printf "   ${bold}-t${c0}                 Truncate output based on terminal width (Experimental!).\n"
-	printf "   ${bold}-s(m)${c0}              Using this flag tells the script that you want it\n"
-	printf "		      to take a screenshot. Use the -m flag if you would like\n"
-	printf "		      to move it to a new location afterwards.\n"
+	printf "   ${bold}-s(u)${c0}              Using this flag tells the script that you want it\n"
+	printf "		      to take a screenshot. Use the -u flag if you would like\n"
+	printf "		      to upload the screenshots to one of the pre-configured.\n"
+	printf "		      locations. These include: teknik, pomf, mediacrush, and hmp.\n"
 	printf "   ${bold}-c string${c0}          You may change the outputted colors with -c. The format is\n"
 	printf "                      as follows: [0-9][0-9],[0-9][0-9]. The first argument controls the\n"
 	printf "                      ASCII logo colors and the label colors. The second argument\n"
@@ -261,12 +260,12 @@ case $1 in
 esac
 		
 
-while getopts ":hsmevVEnNtlS:A:D:o:Bc:d:" flags; do
+while getopts ":hsu:evVEnNtlS:A:D:o:Bc:d:" flags; do
 	case $flags in
 		h) displayHelp; exit 0;;
-		s) screenshot=1; continue;;
+		s) screenshot=1; continue ;;
 		S) screenCommand=$OPTARG; continue;;
-		m) hostshot=1; continue;;
+		u) upload='1'; uploadLoc="${OPTARG}" ;;
 		v) verbosity=1; continue;;
 		V)
 			printf $underline"screenFetch"$c0" - Version $scriptVersion\n"
@@ -394,6 +393,8 @@ detectdistro () {
 			elif [[ "${distro_detect}" == "LinuxDeepin" ]]; then
 				distro="LinuxDeepin"
 				distro_codename=null
+			elif [[ "${distro_detect}" == "Deepin" ]]; then
+				distro="Deepin"
 			elif [[ "${distro_detect}" == "Debian Kali Linux" ]]; then
 				 distro="Kali Linux"
 			elif [[ "${distro_detect}" == "Korora" ]]; then
@@ -449,7 +450,7 @@ detectdistro () {
 			elif [[ "${distro_detect}" == "Viperr" ]]; then
 				distro="Viperr"
 				distro_codename=null
-			elif [ grep -q 'void' /etc/os-release ]; then
+			elif grep -q 'void' /etc/os-release; then
 				distro="Void"
 				distro_release="n/a"
 				distro_codename="n/a"
@@ -471,6 +472,7 @@ detectdistro () {
 				for l in $(echo $distrib_id); do
 					if [[ ${l} =~ ^ID= ]]; then
 						distrib_id=${l//*=}
+						distrib_id=${distrib_id//\"/}
 						break 1
 					fi
 				done
@@ -661,6 +663,7 @@ detectdistro () {
 		void) distro="Void" ;;
 		kaos) distro="KaOS";;
 		linuxdeepin) distro="LinuxDeepin" ;;
+		deepin) distro="Deepin" ;;
 		chakra) distro="Chakra" ;;
 		centos) distro="CentOS";;
 		mac*os*x) distro="Mac OS X" ;;
@@ -738,10 +741,11 @@ detectpkgs () {
 	case $distro in
 		'Arch Linux'|'Parabola GNU/Linux-libre'|'Chakra'|'Manjaro'|'Antergos'|'KaOS') pkgs=$(pacman -Qq | wc -l) ;;
 		'Frugalware') pkgs=$(pacman-g2 -Q | wc -l) ;;
-		'Fuduntu'|'Ubuntu'|'Mint'|'SolusOS'|'Debian'|'Raspbian'|'LMDE'|'CrunchBang'|'Peppermint'|'LinuxDeepin'|'Kali Linux'|'Trisquel'|'elementary OS') pkgs=$(dpkg --get-selections | wc -l) ;;
+		'Fuduntu'|'Ubuntu'|'Mint'|'SolusOS'|'Debian'|'Raspbian'|'LMDE'|'CrunchBang'|'Peppermint'|'LinuxDeepin'|'Deepin'|'Kali Linux'|'Trisquel'|'elementary OS') pkgs=$(dpkg --get-selections | wc -l) ;;
 		'Slackware') pkgs=$(ls -1 /var/log/packages | wc -l) ;;
 		'Gentoo'|'Sabayon'|'Funtoo') pkgs=$(ls -d /var/db/pkg/*/* | wc -l) ;;
 		'Fedora'|'Korora'|'openSUSE'|'Red Hat Enterprise Linux'|'CentOS'|'Mandriva'|'Mandrake'|'Mageia'|'Viperr') pkgs=$(rpm -qa | wc -l) ;;
+		'Void') pkgs=$(xbps-query -l|wc -l);;
 		'Mac OS X')
 			if [ -d "/usr/local/bin" ]; then 
 				loc_pkgs=$(ls -l /usr/local/bin/ | grep -v "\(../Cellar/\|brew\)" | wc -l)
@@ -1301,6 +1305,7 @@ detectwm () {
 						'spectrwm') WM="SpectrWM";;
 						'stumpwm') WM="StumpWM";;
 						'subtle') WM="subtle";;
+						'swm') WM="swm";;
 						'wmaker') WM="WindowMaker";;
 						'wmfs') WM="WMFS";;
 						'wmii') WM="wmii";;
@@ -1376,6 +1381,7 @@ detectwm () {
 					'spectrwm') WM="SpectrWM";;
 					'stumpwm') WM="StumpWM";;
 					'subtle') WM="subtle";;
+					'swm') WM="swm";;
 					'wmaker') WM="WindowMaker";;
 					'wmfs') WM="WMFS";;
 					'wmii') WM="wmii";;
@@ -1503,6 +1509,7 @@ detectwmtheme () {
 		'ScrotWM') Win_theme="Not Present";;
 		'SpectrWM') Win_theme="Not Present";;
 		'subtle') Win_theme="Not Present";;
+		'swm') Win_theme="Not Present";;
 		'WindowMaker') Win_theme="Not Present";;
 		'WMFS') Win_theme="Not Present";;
 		'wmii') Win_theme="Not Present";;
@@ -1805,7 +1812,7 @@ detectdroid () {
 
 takeShot () {
 	if [[ -z $screenCommand ]]; then
-		if [[ "$hostshot" == "1" ]]; then
+		if [[ "${upload}" == "1" ]]; then
 			shotfiles[1]=${shotfile}
 			if [ "$distro" == "Mac OS X" ]; then 
 				displays="$(system_profiler SPDisplaysDataType | grep 'Resolution:' | wc -l | tr -d ' ')"
@@ -1817,8 +1824,50 @@ takeShot () {
 			else scrot -cd3 "${shotfile}"; fi
 			if [ -f "${shotfile}" ]; then
 				[[ "$verbosity" -eq "1" ]] && verboseOut "Screenshot saved at '${shotfiles[@]}'"
-				scp -qo ConnectTimeout="${scptimeout}" "${shotfiles[@]}" "${serveraddr}:${serverdir}"
-				echo -e "${bold}==>${c0} Your screenshot can be viewed at ${baseurl}/$shotfile"
+				printf "${bold}==>${c0}  Uploading your screenshot now..."
+				case "${uploadLoc}" in
+					'teknik')
+						baseurl='http://u.teknik.io'
+						uploadurl='http://api.teknik.io/upload/post'
+						ret=$(curl -sf -F file="@${shotfiles[@]}" ${uploadurl})
+						echo "$ret"
+						filehash="${ret##*name\":\"}"
+						filehash="${fileret%%\"*}"
+						desturl="${baseurl}/${filehash}"
+					;;
+					'mediacrush')
+						baseurl='https://mediacru.sh'
+						uploadurl='https://mediacru.sh/api/upload/file'
+						ret=$(curl -sf -F file="@${shotfiles[@]};type=image/png" ${uploadurl})
+						filehash=$(echo "${ret}" | grep "hash" | cut -d '"' -f4)
+						desturl="${baseurl}/${filehash}"
+					;;
+					'pomf')
+						baseurl='http://a.pomf.se'
+						uploadurl='http://pomf.se/upload.php'
+						ret=$(curl --silent -sf -F files[]="@${shotfiles[@]}" ${uploadurl})
+						filehash="${ret##*url\":\"}"
+						filehash="${filehash%%\"*}"
+						desturl="${baseurl}/${filehash}"
+					;;
+					'hmp')
+						baseurl='http://i.hmp.me/m'
+						uploadurl='http://hmp.me/ap/?uf=1'
+						ret=$(curl -sf -F a="@${shotfiles[@]};type=image/png" ${uploadurl})
+						desturl="${ret##*img_path\":\"}"
+						desturl="${desturl%%\"*}"
+						desturl="${desturl//\\}"
+					;;
+					'local-example')
+						baseurl="http://www.example.com"
+						serveraddr="www.example.com"
+						scptimeout="20"
+						serverdir="/path/to/directory"
+						scp -qo ConnectTimeout="${scptimeout}" "${shotfiles[@]}" "${serveraddr}:${serverdir}"
+						desturl="${baseurl}/${shotfile}"
+					;;
+				esac		
+				printf "your screenshot can be viewed at ${desturl}\n"
 			else
 				verboseOut "ERROR: Problem saving screenshot to ${shotfiles[@]}"
 			fi
@@ -2051,7 +2100,7 @@ asciiText () {
 			fi
 			if [ -n "${my_lcolor}" ]; then c1="${my_lcolor}"; c2="${my_lcolor}"; fi
 			startline="0"
-                        fulloutput=("  $c1   .',;:cc;,'.     .,;::c:,,.  %s"
+                        fulloutput=(" $c1   .',;:cc;,'.    .,;::c:,,.    %s"
 "   $c1,ooolcloooo:  'oooooccloo:   %s"
 "   $c1.looooc;;:ol  :oc;;:ooooo'   %s"
 "     $c1;oooooo:      ,ooooooc.    %s"
@@ -2640,6 +2689,31 @@ asciiText () {
 "                                 %s")
 		;;
 
+		"Deepin")
+			if [[ "$no_color" != "1" ]]; then
+				c1=$(getColor 'cyan') # Bold Green
+			fi
+			if [ -n "${my_lcolor}" ]; then c1="${my_lcolor}"; fi
+			startline="0"
+                        fulloutput=("${c1}              ............                %s"
+"${c1}          .';;;;;.       .,;,.           %s"
+"${c1}       .,;;;;;;;.       ';;;;;;;.        %s"
+"${c1}     .;::::::::'     .,::;;,''''',.      %s"
+"${c1}    ,'.::::::::    .;;'.          ';     %s"
+"${c1}   ;'  'cccccc,   ,' :: '..        .:    %s"
+"${c1}  ,,    :ccccc.  ;: .c, '' :.       ,;   %s"
+"${c1} .l.     cllll' ., .lc  :; .l'       l.  %s"
+"${c1} .c       :lllc  ;cl:  .l' .ll.      :'  %s"
+"${c1} .l        'looc. .   ,o:  'oo'      c,  %s"
+"${c1} .o.         .:ool::coc'  .ooo'      o.  %s"
+"${c1}  ::            .....   .;dddo      ;c   %s"
+"${c1}   l:...            .';lddddo.     ,o    %s"
+"${c1}    lxxxxxdoolllodxxxxxxxxxc      :l     %s"
+"${c1}     ,dxxxxxxxxxxxxxxxxxxl.     'o,      %s"
+"${c1}       ,dkkkkkkkkkkkkko;.    .;o;        %s"
+"${c1}         .;okkkkkdl;.    .,cl:.          %s"
+"${c1}             .,:cccccccc:,.  %s")
+                ;;
 
 		"Chakra")
 			if [[ "$no_color" != "1" ]]; then
@@ -3257,7 +3331,7 @@ infoDisplay () {
 	[[ "${asc_distro}" ]] && myascii="${asc_distro}"
 	case ${myascii} in
 		"Arch Linux - Old"|"Fedora"|"Korora"|"Mandriva"|"Mandrake"|"Chakra"|"Sabayon"|"Slackware"|"Mac OS X"|"Trisquel"|"Kali Linux"|"Jiyuu Linux"|"Antergos"|"KaOS") labelcolor=$(getColor 'light blue');;
-		"Arch Linux"|"Frugalware"|"Mageia") labelcolor=$(getColor 'light cyan');;
+		"Arch Linux"|"Frugalware"|"Mageia"|"Deepin") labelcolor=$(getColor 'light cyan');;
 		"Mint"|"LMDE"|"openSUSE"|"LinuxDeepin"|"DragonflyBSD"|"Manjaro"|"Manjaro-tree"|"Android"|"Void") labelcolor=$(getColor 'light green');;
 		"Ubuntu-3color"|"FreeBSD"|"Debian"|"Raspbian"|"BSD"|"Red Hat Enterprise Linux"|"Peppermint"|"Cygwin"|"Fuduntu"|"NetBSD"|"Scientific Linux"|"DragonFlyBSD"|"BackTrack Linux") labelcolor=$(getColor 'light red');;
 		"CrunchBang"|"SolusOS"|"Viperr"|"elementary"*) labelcolor=$(getColor 'dark grey');;
@@ -3268,7 +3342,7 @@ infoDisplay () {
 	if [[ "$no_color" == "1" ]]; then labelcolor=""; bold=""; c0=""; textcolor=""; fi
 	# Some verbosity stuff
 	[[ "$verbosity" == "1" ]] && [[ "$screenshot" == "1" ]] && verboseOut "Screenshot will be taken after info is displayed."
-	[[ "$verbosity" == "1" ]] && [[ "$hostshot" == "1" ]] && verboseOut "Screenshot will be transferred/uploaded to specified location."
+	[[ "$verbosity" == "1" ]] && [[ "$upload" == "1" ]] && verboseOut "Screenshot will be transferred/uploaded to specified location."
 	#########################
 	# Info Variable Setting #
 	#########################
