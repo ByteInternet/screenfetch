@@ -1,7 +1,7 @@
 .\" This manpage was created with the following command and
 .\" then manually edited:
 .\" help2man -N -v "-V" -h "-h" ./screenfetch > screenfetch.1
-.TH SCREENFETCH "1" "July 2014" "3.6.0" "User Commands"
+.TH SCREENFETCH "1" "August 2014" "3.6.2" "User Commands"
 
 .SH NAME
 screenFetch \- The Bash Screenshot Information Tool
@@ -22,8 +22,8 @@ This script is very easy to add to and can easily be extended.
 Supported GNU/Linux Distributions:
 .IP
 Arch Linux (Old and Current Logos), Antergos, Chakra, CentOS, Debian,
-CrunchBang, Raspbian, elementary OS, Fedora, Frugalware, Fuduntu, Gentoo,
-Funtoo, Jiyuu Linux, LinuxDeepin, Kali Linux, KaOS, Korora, Mageia, Mandriva,
+CrunchBang, Raspbian, elementary OS, Evolve OS, Fedora, Frugalware, Fuduntu,
+Gentoo, Funtoo, Jiyuu Linux, LinuxDeepin, Kali Linux, KaOS, Korora, Mageia, Mandriva,
 Manjaro, Linux Mint, LMDE, openSUSE, Parabola GNU/Linux-libre, Peppermint,
 Red Hat Enterprise Linux, Sabayon, Scientific Linux, Slackware, SolusOS,
 TinyCore, Trisquel, Ubuntu, Viperr and Void.
@@ -64,11 +64,14 @@ Strip all color from output.
 .B \-t
 Truncate output based on terminal width (Experimental!).
 .TP
-.B \-s(m)
+.B \-p
+Output in portrait mode, with logo above info.
+.TP
+.B \-s(u)
 Using this flag tells the script that you want it
 to take a screenshot. Use the \fB\-u\fR flag if you would like
 to upload the screenshots to one of the pre-configured
-locations. These include: teknik, pomf, mediacrush, and hmp.
+locations. These include: teknik, pomf, imgur, mediacrush, and hmp.
 .TP
 .B \-c string
 You may change the outputted colors with \fB\-c\fR. The format is
@@ -93,10 +96,10 @@ detected but want to display a different logo.
 .B \-E
 Suppress output of errors.
 .TP
-.B \-V
+.B \-V, \-\-version
 Display current script version.
 .TP
-.B \-h
+.B \-h, \-\-help
 Display this help.
 
 .SH "SEE ALSO"
