@@ -2,6 +2,7 @@ screenfetch (3.6.5-2) UNRELEASED; urgency=medium
 
   * debian/control
     - set Standards-Version: 3.9.6
+    - update Vcs-Browser
 
  -- Hideki Yamane <henrich@debian.org>  Sat, 03 Jan 2015 21:23:45 +0900
 
