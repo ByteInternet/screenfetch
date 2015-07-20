@@ -1,7 +1,6 @@
-.\" This manpage was created with the following command and
-.\" then manually edited:
-.\" help2man -N -v "-V" -h "-h" ./screenfetch > screenfetch.1
-.TH SCREENFETCH "1" "August 2014" "3.6.2" "User Commands"
+.TH SCREENFETCH "1" "April 2015" "3.6.5" "User Commands"
+.\" Don't remove the lines starting with ».\" @supported_« !
+.\" They're important for update-manpage.sh.
 
 .SH NAME
 screenFetch \- The Bash Screenshot Information Tool
@@ -15,34 +14,33 @@ nifty terminal theme information + ASCII distribution logos you
 see in everyone's screenshots nowadays. It will auto-detect your
 distribution and display an ASCII version of that distribution's
 logo and some valuable information to the right. There are options
-to specify no ascii art, colors, taking a screenshot upon displaying
+to specify no ASCII art, colors, taking a screenshot upon displaying
 info, and even customizing the screenshot command!
 This script is very easy to add to and can easily be extended.
 .PP
 Supported GNU/Linux Distributions:
 .IP
-Arch Linux (Old and Current Logos), Antergos, Chakra, CentOS, Debian,
-CrunchBang, Raspbian, elementary OS, Evolve OS, Fedora, Frugalware, Fuduntu,
-Gentoo, Funtoo, Jiyuu Linux, LinuxDeepin, Kali Linux, KaOS, Korora, Mageia, Mandriva,
-Manjaro, Linux Mint, LMDE, openSUSE, Parabola GNU/Linux-libre, Peppermint,
-Red Hat Enterprise Linux, Sabayon, Scientific Linux, Slackware, SolusOS,
-TinyCore, Trisquel, Ubuntu, Viperr and Void.
+.\" @supported_distros_start@
+Antergos, Arch Linux (Old and Current Logos), BLAG, CentOS, Chakra, Chapeau, CrunchBang, CRUX, Debian, Deepin, Dragora, elementary OS, Evolve OS, Fedora, Frugalware, Fuduntu, Funtoo, Gentoo, gNewSense, Jiyuu Linux, Kali Linux, KaOS, Korora, LinuxDeepin, Linux Mint, LMDE, Logos, Mageia, Mandriva/Mandrake, Manjaro, NixOS, openSUSE, Parabola GNU/Linux-libre, PeppermintOS, Raspbian, Red Hat Enterprise Linux, Sabayon, Scientific Linux, Slackware, SolusOS, TinyCore, Trisquel, Ubuntu, Viperr and Void.
+.\" @supported_distros_end@
 .PP
 Other Supported Systems:
 .IP
-Mac OS X, FreeBSD, DragonFlyBSD, NetBSD, OpenBSD, Android and Cygwin.
+.\" @supported_other_start@
+Dragonfly/Free/Open/Net BSD, Haiku, Mac OS X and Windows+Cygwin.
+.\" @supported_other_end@
 .PP
 Supported Desktop Managers:
 .IP
-KDE, Gnome, Unity, Xfce, LXDE, Cinnamon, MATE and RazorQt.
+.\" @supported_dms_start@
+KDE, Gnome, Unity, Xfce, LXDE, Cinnamon, MATE, CDE and RazorQt.
+.\" @supported_dms_end@
 .PP
 Supported Window Managers:
 .IP
-2bwm, Awesome, Beryl, Blackbox, Cinnamon, Compiz, dminiwm, dwm, E16, E17,
-echinus, Emerald, FluxBox, FVWM, herbstluftwm, IceWM, KWin, Metacity,
-monsterwm, Musca, Gala, Mutter, Muffin, Notion, OpenBox, PekWM, Ratpoison,
-Sawfish, ScrotWM, SpectrWM, StumpWM, subtle, WindowMaker, WMFS, wmii,
-Xfwm4, XMonad and i3.
+.\" @supported_wms_start@
+2bwm, 9wm, Awesome, Beryl, Blackbox, Cinnamon, Compiz, dminiwm, dwm, dtwm, E16, E17, echinus, Emerald, FluxBox, FVWM, herbstluftwm, IceWM, KWin, Metacity, monsterwm, Musca, Gala, Mutter, Muffin, Notion, OpenBox, PekWM, Ratpoison, Sawfish, ScrotWM, SpectrWM, StumpWM, subtle, WindowMaker, WMFS, wmii, Xfwm4, XMonad and i3.
+.\" @supported_wms_end@
 
 .SH OPTIONS
 .TP
@@ -52,11 +50,20 @@ Verbose output.
 .B \-o 'OPTIONS'
 Allows for setting script variables on the
 command line. Must be in the following format:
-.br
 \&'OPTION1="OPTIONARG1";OPTION2="OPTIONARG2"'
+.TP
+.B -d '+var;-var;var'
+Allows for setting what information is displayed on the command line. You can
+add displays with +var,var.  You can delete displays with -var,var. Setting
+without + or - will set display to that explicit combination. Add and delete
+statements may be used in conjunction by placing a ; between them as so:
++var,var,var;-var,var.
 .TP
 .B \-n
 Do not display ASCII distribution logo.
+.TP
+.B \-L
+Display ASCII distribution logo only.
 .TP
 .B \-N
 Strip all color from output.
@@ -79,6 +86,12 @@ as follows: [0\-9][0\-9],[0\-9][0\-9]. The first argument controls the
 ASCII logo colors and the label colors. The second argument
 controls the colors of the information found. One argument may be
 used without the other.
+.TP
+.B \-a 'PATH'
+You can specify a custom ASCII art by passing the path to a Bash script,
+defining \fBstartline\fR and \fBfulloutput\fR variables, and optionally
+\fBlabelcolor\fR and \fBtextcolor\fR. See the \fBasciiText\fR function
+in the source code for more informations on the variables format.
 .TP
 .B \-S 'COMMAND'
 Here you can specify a custom screenshot command for
@@ -107,7 +120,7 @@ http://github.com/KittyKatt/screenFetch
 
 .SH AUTHOR
 Created by and licensed to Brett Bohnenkamper <kittykatt@kittykatt.us>.
-OS X porting done almost solely by shrx <https://github.com/shrx> and Hu6.
+OS X porting done almost solely by shrx <https://github.com/shrx> and John D. Duncan, III <https://github.com/JohnDDuncanIII>.
 .PP
 This manual page was written by djcj <djcj@gmx.de>
 
