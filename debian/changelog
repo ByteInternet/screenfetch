@@ -5,6 +5,9 @@ screenfetch (3.8.0-1) UNRELEASED; urgency=medium
   * debian/control
     - update Standards-Version: 3.9.8
     - use https for Vcs-*
+    - set Build-Depends: debhelper (>= 10)
+  * debian/compat
+    - set 10
 
  -- Hideki Yamane <henrich@debian.org>  Mon, 24 Apr 2017 20:46:35 +0900
 
