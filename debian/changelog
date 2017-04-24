@@ -4,6 +4,7 @@ screenfetch (3.8.0-1) UNRELEASED; urgency=medium
   * add debian/gbp.conf 
   * debian/control
     - update Standards-Version: 3.9.8
+    - use https for Vcs-*
 
  -- Hideki Yamane <henrich@debian.org>  Mon, 24 Apr 2017 20:46:35 +0900
 
