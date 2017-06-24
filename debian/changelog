@@ -1,4 +1,4 @@
-screenfetch (3.8.0-2) UNRELEASED; urgency=medium
+screenfetch (3.8.0-2) unstable; urgency=medium
 
   * debian/control
     - fix Vcs-Git, thanks to duck.debian.net 
@@ -6,7 +6,7 @@ screenfetch (3.8.0-2) UNRELEASED; urgency=medium
   * debian/copyright
     - update upstream source URI
 
- -- Hideki Yamane <henrich@debian.org>  Sun, 25 Jun 2017 00:02:11 +0900
+ -- Hideki Yamane <henrich@debian.org>  Sun, 25 Jun 2017 00:05:02 +0900
 
 screenfetch (3.8.0-1) unstable; urgency=medium
 
