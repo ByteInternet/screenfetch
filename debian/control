@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Hideki Yamane <henrich@debian.org>
 Build-Depends: debhelper (>= 10)
-Standards-Version: 3.9.8
+Standards-Version: 4.0.0
 Homepage: https://github.com/KittyKatt/screenFetch
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/screenfetch.git
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/screenfetch.git

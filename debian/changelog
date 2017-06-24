@@ -2,6 +2,7 @@ screenfetch (3.8.0-2) UNRELEASED; urgency=medium
 
   * debian/control
     - fix Vcs-Git, thanks to duck.debian.net 
+    - set Standards-Version: 4.0.0
 
  -- Hideki Yamane <henrich@debian.org>  Sun, 25 Jun 2017 00:02:11 +0900
 
