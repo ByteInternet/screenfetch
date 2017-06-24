@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: screenfetch
-Source: http://git.silverirc.com/cgit.cgi/screenfetch-dev.git/
+Source: https://github.com/KittyKatt/screenFetch
 
 Files: *
 Copyright: 2010-2014 Brett Bohnenkamper <kittykatt@kittykatt.us>
