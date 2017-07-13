@@ -1,3 +1,10 @@
+screenfetch (3.8.0-3) unstable; urgency=medium
+
+  * debian/watch
+    - fix it, don't forget version prefix "v"
+
+ -- Hideki Yamane <henrich@debian.org>  Thu, 13 Jul 2017 19:32:34 +0900
+
 screenfetch (3.8.0-2) unstable; urgency=medium
 
   * debian/control
