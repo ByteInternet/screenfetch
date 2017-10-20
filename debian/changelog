@@ -1,10 +1,10 @@
-screenfetch (3.8.0-5) UNRELEASED; urgency=medium
+screenfetch (3.8.0-5) unstable; urgency=medium
 
   * debian/control
     - set Multi-Arch: foreign 
     - set Standards-Version: 4.1.1
 
- -- Hideki Yamane <henrich@debian.org>  Sat, 21 Oct 2017 08:02:37 +0900
+ -- Hideki Yamane <henrich@debian.org>  Sat, 21 Oct 2017 08:03:28 +0900
 
 screenfetch (3.8.0-3) unstable; urgency=medium
 
