@@ -5,6 +5,7 @@ screenfetch (3.8.0-6) UNRELEASED; urgency=medium
       Thanks to Yadickson Soto <yadickson@gmail.com> for the report. 
     - set Build-Depends: debhelper (>= 11)
     - Standards-Version: 4.1.3
+    - move Vcs-* from alioth to salsa.debian.org
   * debian/compat
     - set 11
 
