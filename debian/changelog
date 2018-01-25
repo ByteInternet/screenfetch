@@ -4,6 +4,7 @@ screenfetch (3.8.0-6) UNRELEASED; urgency=medium
     - add Depends: procps, bc (Closes: #888134)
       Thanks to Yadickson Soto <yadickson@gmail.com> for the report. 
     - set Build-Depends: debhelper (>= 11)
+    - Standards-Version: 4.1.3
   * debian/compat
     - set 11
 
