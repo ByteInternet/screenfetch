@@ -1,4 +1,4 @@
-screenfetch (3.8.0-6) UNRELEASED; urgency=medium
+screenfetch (3.8.0-6) unstable; urgency=medium
 
   * debian/control
     - add Depends: procps, bc (Closes: #888134)
@@ -9,7 +9,7 @@ screenfetch (3.8.0-6) UNRELEASED; urgency=medium
   * debian/compat
     - set 11
 
- -- Hideki Yamane <henrich@debian.org>  Thu, 25 Jan 2018 22:30:01 +0900
+ -- Hideki Yamane <henrich@debian.org>  Thu, 25 Jan 2018 22:59:45 +0900
 
 screenfetch (3.8.0-5) unstable; urgency=medium
 
