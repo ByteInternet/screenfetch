@@ -1,0 +1,6 @@
+#!/bin/sh
+
+screenfetch
+
+# check whether missing dependency
+[ ! `screenfetch | grep 'command not found' > /dev/null` ]
