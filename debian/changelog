@@ -1,11 +1,11 @@
-screenfetch (3.8.0-7) UNRELEASED; urgency=medium
+screenfetch (3.8.0-7) unstable; urgency=medium
 
   * debian/control,changelog
     - remove unnecessary trailing whitespace
   * debian/tests
     - add tiny smoke test
 
- -- Hideki Yamane <henrich@debian.org>  Thu, 01 Feb 2018 20:51:17 +0900
+ -- Hideki Yamane <henrich@debian.org>  Thu, 01 Feb 2018 20:53:27 +0900
 
 screenfetch (3.8.0-6) unstable; urgency=medium
 
