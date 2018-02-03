@@ -1,3 +1,10 @@
+screenfetch (3.8.0-8) unstable; urgency=medium
+
+  * debian/patches
+    - add 0001-Avoid-failure-on-some-virtual-environment.patch 
+
+ -- Hideki Yamane <henrich@debian.org>  Sat, 03 Feb 2018 23:05:32 +0900
+
 screenfetch (3.8.0-7) unstable; urgency=medium
 
   * debian/control,changelog
