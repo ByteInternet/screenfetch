@@ -12,7 +12,7 @@ package_build:
   stage: build
   script:
     - echo "deb-src http://deb.debian.org/debian sid main" >> /etc/apt/sources.list && apt update -qq && apt build-dep ./ -y -qq
-    - apt install -y -qq dpkg-dev && dpkg-buildpackage -us -uc -b && mkdir build; cd ../ && mv ./${PKG}_*.deb ./${PKG}_*.changes ${PKG}/build
+    - apt install -y -qq dpkg-dev && dpkg-buildpackage -us -uc -b && mkdir build; cd ../; ls -al && mv ./${PKG}_*.deb ./${PKG}_*.changes package_build/build
   artifacts:
     paths:
       - ${PKG}/build/*.deb
