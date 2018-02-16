@@ -12,16 +12,16 @@ package_build:
   stage: build
   script:
     - echo "deb-src http://deb.debian.org/debian sid main" >> /etc/apt/sources.list && apt update -qq && apt build-dep ./ -y -qq
-    - apt install -y -qq dpkg-dev && dpkg-buildpackage -us -uc -b
+    - apt install -y -qq dpkg-dev && dpkg-buildpackage -us -uc -b && mv ../*.deb ../.changes /tmp
   artifacts:
     paths:
-      - ../*.deb
-      - ../*.changes
+      - /tmp/*.deb
+      - /tmp/*.changes
 
 piuparts:
   stage: test
   script:
-    - apt install -y -qq piuparts
-    - piuparts --mirror=http://deb.debian.org/debian --logfile=../piuparts.log --fail-on-broken-symlinks ../${PKG}_*.changes
+    - apt update -qq && apt install -y -qq piuparts
+    - piuparts --mirror=http://deb.debian.org/debian --logfile=../piuparts.log --fail-on-broken-symlinks /tmp/${PKG}_*.changes
   dependencies:
     - package_build
