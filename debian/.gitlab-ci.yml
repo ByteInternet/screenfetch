@@ -1,10 +1,9 @@
-image: debian:sid
 
 variables:
 # adjust to your source package
   PKG: screenfetch
 
-stage:
+stages:
    - build
    - test
 
