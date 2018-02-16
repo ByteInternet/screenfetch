@@ -1,3 +1,4 @@
+image: debian:sid
 
 variables:
 # adjust to your source package
