@@ -6,7 +6,7 @@ variables:
 
 stages:
    - build
-   - test
+   - autopkgtest
 
 package_build:
   stage: build
@@ -27,9 +27,9 @@ package_build:
 #    - package_build
 
 autopkgtest:
-  stage: test
+  stage: autopkgtest
   script:
-    - apt install -y -qq autopkgtest
+    - apt update -qq && apt install -y -qq autopkgtest
     - autopkgtest build/*.changes
   dependencies:
     - package_build
