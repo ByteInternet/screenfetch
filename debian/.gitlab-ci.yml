@@ -18,10 +18,17 @@ package_build:
       - build/*.deb
       - build/*.changes
 
-piuparts:
+#piuparts:
+#  stage: test
+#  script:
+#    - apt update -qq && apt install -y -qq piuparts
+#    - piuparts --mirror=http://deb.debian.org/debian --logfile=../piuparts.log --fail-on-broken-symlinks build/*.changes
+#  dependencies:
+#    - package_build
+
+autopkgtest:
   stage: test
   script:
-    - apt update -qq && apt install -y -qq piuparts
-    - piuparts --mirror=http://deb.debian.org/debian --logfile=../piuparts.log --fail-on-broken-symlinks build/*.changes
+    - autopkgtest build/*.changes
   dependencies:
     - package_build
