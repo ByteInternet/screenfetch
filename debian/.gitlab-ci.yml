@@ -29,6 +29,7 @@ package_build:
 autopkgtest:
   stage: test
   script:
+    - apt install -y -qq autopkgtest
     - autopkgtest build/*.changes
   dependencies:
     - package_build
