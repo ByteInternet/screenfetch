@@ -30,6 +30,6 @@ autopkgtest:
   stage: autopkgtest
   script:
     - apt update -qq && apt install -y -qq autopkgtest
-    - autopkgtest build/*.changes
+    - autopkgtest build/*.changes -- null
   dependencies:
     - package_build
