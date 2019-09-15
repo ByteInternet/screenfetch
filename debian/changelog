@@ -1,10 +1,18 @@
 screenfetch (3.8.0-9) UNRELEASED; urgency=medium
 
+  [ Ondřej Nový ]
   * d/copyright: Use https protocol in Format field
   * d/changelog: Remove trailing whitespaces
   * d/rules: Remove trailing whitespaces
 
- -- Ondřej Nový <onovy@debian.org>  Mon, 01 Oct 2018 10:28:54 +0200
+  [ Hideki Yamane ]
+  * switch to salsa-ci.yml
+  * debian/control
+    - add Rules-Requires-Root: no
+    - set Standards-Version: 4.4.0
+    - use dh12
+
+ -- Hideki Yamane <henrich@debian.org>  Sun, 15 Sep 2019 23:16:35 +0900
 
 screenfetch (3.8.0-8) unstable; urgency=medium
 
