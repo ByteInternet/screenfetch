@@ -1,4 +1,4 @@
-screenfetch (3.8.0+git20190913-1) UNRELEASED; urgency=medium
+screenfetch (3.8.0+git20190913-1) unstable; urgency=medium
 
   * New upstream git snapshot
     - fix "error printed if /proc/fb doesn't exist" (Closes: #927910)
@@ -17,7 +17,7 @@ screenfetch (3.8.0+git20190913-1) UNRELEASED; urgency=medium
   * debian/patches
     - drop 0001-Avoid-failure-on-some-virtual-environment.patch
 
- -- Hideki Yamane <henrich@debian.org>  Sun, 15 Sep 2019 23:16:35 +0900
+ -- Hideki Yamane <henrich@debian.org>  Sun, 15 Sep 2019 23:29:04 +0900
 
 screenfetch (3.8.0-8) unstable; urgency=medium
 
