@@ -11,6 +11,8 @@ screenfetch (3.8.0+git20190913-1) UNRELEASED; urgency=medium
     - add Rules-Requires-Root: no
     - set Standards-Version: 4.4.0
     - use dh12
+  * debian/patches
+    - drop 0001-Avoid-failure-on-some-virtual-environment.patch
 
  -- Hideki Yamane <henrich@debian.org>  Sun, 15 Sep 2019 23:16:35 +0900
 
