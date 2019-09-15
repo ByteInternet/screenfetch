@@ -1,5 +1,8 @@
 screenfetch (3.8.0+git20190913-1) UNRELEASED; urgency=medium
 
+  * New upstream git snapshot
+    - fix "error printed if /proc/fb doesn't exist" (Closes: #927910)
+
   [ Ondřej Nový ]
   * d/copyright: Use https protocol in Format field
   * d/changelog: Remove trailing whitespaces
