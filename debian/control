@@ -11,8 +11,8 @@ Rules-Requires-Root: no
 
 Package: screenfetch
 Architecture: all
-Depends: ${misc:Depends}, procps, bc
-Recommends: scrot
+Depends: ${misc:Depends}, procps, bc, pciutils,
+Recommends: scrot, 
 Multi-Arch: foreign
 Description: Bash Screenshot Information Tool
  screenFetch is a "Bash Screenshot Information Tool". This handy Bash script

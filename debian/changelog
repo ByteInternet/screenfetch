@@ -1,3 +1,10 @@
+screenfetch (3.8.0+git20190913-2) unstable; urgency=medium
+
+  * debian/control
+    - add Depends: pciutils to avoid CI failure
+
+ -- Hideki Yamane <henrich@debian.org>  Mon, 16 Sep 2019 21:10:51 +0900
+
 screenfetch (3.8.0+git20190913-1) unstable; urgency=medium
 
   * New upstream git snapshot
