@@ -3,11 +3,11 @@ Upstream-Name: screenfetch
 Source: https://github.com/KittyKatt/screenFetch
 
 Files: *
-Copyright: 2010-2014 Brett Bohnenkamper <kittykatt@kittykatt.us>
+Copyright: 2010-2019 Brett Bohnenkamper <kittykatt@kittykatt.us>
 License: GPL-3+
 
 Files: debian/*
-Copyright: 2014 Hideki Yamane <henrich@debian.org>
+Copyright: 2014-2019 Hideki Yamane <henrich@debian.org>
 License: GPL-3+
 
 License: GPL-3+
