@@ -1,3 +1,14 @@
+screenfetch (3.9.1-1) unstable; urgency=medium
+
+  * New upstream release 3.9.1
+  * debian/control
+    - drop Build-Depends: debhelper, just debhelper-compat is enough
+  * debian/copyright
+    - update copyright year
+  * add upstream/metadata
+
+ -- Hideki Yamane <henrich@debian.org>  Sat, 16 Nov 2019 21:11:19 +0900
+
 screenfetch (3.9.0-1) unstable; urgency=medium
 
   * New upstream release
