@@ -11,7 +11,7 @@ Rules-Requires-Root: no
 
 Package: screenfetch
 Architecture: all
-Depends: ${misc:Depends}, procps, bc, pciutils,
+Depends: ${misc:Depends}, procps, bc,
 Recommends: scrot, 
 Multi-Arch: foreign
 Description: Bash Screenshot Information Tool
