@@ -3399,9 +3399,8 @@ asciiText () {
 				c2=$(getColor 'light red') # Light Red
 			fi
 			if [ -n "${my_lcolor}" ]; then c1="${my_lcolor}"; c2="${my_lcolor}"; fi
-			startline="4"
 			logowidth="32"
-			startline="0"
+			startline="4"
 			fulloutput=(
 "[49m                                                "
 "                 [38;5;74m▄▄[48;5;74m         [49m▄▄                  "
