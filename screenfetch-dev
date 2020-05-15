@@ -360,7 +360,7 @@ detectColors () {
 
 supported_distros="ALDOS, Alpine Linux, Amazon Linux, Antergos, Arch Linux (Old and Current Logos), ArcoLinux, Artix Linux, \
 blackPanther OS, BLAG, BunsenLabs, CentOS, Chakra, Chapeau, Chrome OS, Chromium OS, CrunchBang, CRUX, \
-Debian, Deepin, DesaOS,Devuan, Dragora, elementary OS, EuroLinux, Evolve OS, Sulin, Exherbo, Fedora, Frugalware, Fuduntu, Funtoo, \
+Debian, Hypernode, Deepin, DesaOS,Devuan, Dragora, elementary OS, EuroLinux, Evolve OS, Sulin, Exherbo, Fedora, Frugalware, Fuduntu, Funtoo, \
 Fux, Gentoo, gNewSense, Guix System, Hyperbola GNU/Linux-libre, januslinux, Jiyuu Linux, Kali Linux, KaOS, KDE neon, Kogaion, Korora, \
 LinuxDeepin, Linux Mint, LMDE, Logos, Mageia, Mandriva/Mandrake, Manjaro, Mer, Netrunner, NixOS, OBRevenge, openSUSE, \
 OS Elbrus, Oracle Linux, Parabola GNU/Linux-libre, Pardus, Parrot Security, PCLinuxOS, PeppermintOS, Proxmox VE, PureOS, Qubes OS, \
@@ -606,7 +606,11 @@ detectdistro () {
 					distro_codename=$(source /etc/lsb-release; echo "$DISTRIB_CODENAME")
 					;;
 				"Debian")
-					if [[ -f /etc/crunchbang-lsb-release || -f /etc/lsb-release-crunchbang ]]; then
+					if [[ -d /etc/hypernode ]]; then
+						distro="Hypernode"
+						distro_release=$(grep Release /etc/motd  | awk '{print $2}')
+						distro_codename=$(grep PRETTY /etc/os-release | cut -d '"' -f2)
+					elif [[ -f /etc/crunchbang-lsb-release || -f /etc/lsb-release-crunchbang ]]; then
 						distro="CrunchBang"
 						distro_release=$(awk -F'=' '/^DISTRIB_RELEASE=/ {print $2}' /etc/lsb-release-crunchbang)
 						distro_codename=$(awk -F'=' '/^DISTRIB_DESCRIPTION=/ {print $2}' /etc/lsb-release-crunchbang)
@@ -1169,6 +1173,7 @@ detectdistro () {
 		crux) distro="CRUX" ;;
 		cygwin) distro="Cygwin" ;;
 		debian) distro="Debian" ;;
+		hypernode) distro="Hypernode" ;;
 		devuan) distro="Devuan" ;;
 		deepin) distro="Deepin" ;;
 		desaos) distro="DesaOS" ;;
@@ -1354,7 +1359,7 @@ detectpkgs () {
 			pkgs=$(ls -1 /var/db/pkg | wc -l) ;;
 		'Frugalware')
 			pkgs=$(pacman-g2 -Q | wc -l) ;;
-		'Debian'|'Ubuntu'|'Mint'|'Fuduntu'|'KDE neon'|'Devuan'|'OS Elbrus'|'Raspbian'|'LMDE'|'CrunchBang'|'Peppermint'| \
+		'Debian'|'Ubuntu'|'Mint'|'Fuduntu'|'KDE neon'|'Devuan'|'OS Elbrus'|'Raspbian'|'LMDE'|'CrunchBang'|'Hypernode'|'Peppermint'| \
 		'LinuxDeepin'|'Deepin'|'Kali Linux'|'Trisquel'|'elementary OS'|'gNewSense'|'BunsenLabs'|'SteamOS'|'Parrot Security'| \
 		'GrombyangOS'|'DesaOS'|'Zorin OS'|'Proxmox VE'|'PureOS')
 			pkgs=$(dpkg -l | grep -c '^i') ;;
@@ -3386,6 +3391,37 @@ asciiText () {
 "${c1}            \`\"Y\$b._             %s"
 "${c1}                \`\"\"\"\"           %s"
 "${c1}                                %s")
+		;;
+
+		"Hypernode")
+			if [[ "$no_color" != "1" ]]; then
+				c1=$(getColor 'white') # White
+				c2=$(getColor 'light red') # Light Red
+			fi
+			if [ -n "${my_lcolor}" ]; then c1="${my_lcolor}"; c2="${my_lcolor}"; fi
+			startline="4"
+			logowidth="32"
+			startline="0"
+			fulloutput=(
+"[49m                                                "
+"                 [38;5;74m▄▄[48;5;74m         [49m▄▄                  "
+"             ▄▄[48;5;74m                 [49m▄▄              "
+"            ▄[48;5;74m       [38;5;195m▄▄     [48;5;116m[38;5;231m▄[48;5;74m[38;5;153m▄     [49m[38;5;74m▄             "
+"            [48;5;74m        [48;5;231m  [48;5;74m    [48;5;116m [48;5;231m [48;5;189m [48;5;74m      [49m             %s"
+"            [48;5;74m        [48;5;255m[38;5;116m▄▄[48;5;74m     [48;5;231m▄[48;5;153m[38;5;74m▄[48;5;74m      [49m             %s"
+"            [48;5;74m                       [49m             %s"
+"            ▀[48;5;74m                     [49m▀             %s"
+"                 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀                 %s"
+"                ▄▄          ▄▄                  %s"
+"               ▀[48;5;74m              [49m                  %s"
+"                [48;5;74m              [49m                  %s"
+"                ▀[48;5;74m            [49m▀                  %s"
+"                  [48;5;74m  [49m▀[48;5;74m    [49m▀[48;5;74m  [49m                    %s"
+"                  [48;5;74m  [49m      [48;5;74m  [49m                    %s"
+"                  [48;5;74m  [49m      [48;5;74m  [49m                    %s"
+"                 ▄[48;5;74m   [49m▄  ▄[48;5;74m   [49m▄                   %s"
+"                 ▀▀▀▀   ▀▀▀▀▀                   %s"
+" [39m                                               %s")
 		;;
 
 		"Proxmox VE")
@@ -6075,7 +6111,7 @@ infoDisplay () {
 		"Obarun"|"Siduction"|"Solus"|"SwagArch"|"Parrot Security"|"Zorin OS")
 			labelcolor=$(getColor 'light blue')
 		;;
-		"Arch Linux"|"Artix Linux"|"Frugalware"|"Mageia"|"Deepin"|"CRUX"|"OS Elbrus"|"EndeavourOS")
+		"Arch Linux"|"Artix Linux"|"Hypernode"|"Frugalware"|"Mageia"|"Deepin"|"CRUX"|"OS Elbrus"|"EndeavourOS")
 			labelcolor=$(getColor 'light cyan')
 		;;
 		"Mint"|"LMDE"|"KDE neon"|"openSUSE"|"SUSE Linux Enterprise"|"LinuxDeepin"|"DragonflyBSD"|"Manjaro"| \
